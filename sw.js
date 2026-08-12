@@ -1,6 +1,6 @@
 /* Knight School service worker — caches everything on install so the app
    works with no connection at all after the first visit. */
-const CACHE = 'knight-school-v1';
+const CACHE = 'knight-school-v2';
 const FILES = [
   './', './index.html', './manifest.json',
   './icons/icon-48.png', './icons/icon-72.png', './icons/icon-96.png',
