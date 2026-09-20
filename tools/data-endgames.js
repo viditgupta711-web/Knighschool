@@ -1,0 +1,244 @@
+// Endgame technique, tier 10. Every `fen` is checked for legality and every
+// `accept` move is checked to be legal (and to mate, where the lesson claims mate).
+module.exports = [
+{
+  id:"e-why", tier:10, title:"Why endgames win games",
+  body:"Most club games are decided after the queens come off, and most players have studied that phase least. A single known technique — the opposition, the Lucena bridge, a rook behind a passed pawn — converts a position you would otherwise fumble. Endgame knowledge is the cheapest rating you will ever buy.",
+  points:["Endgames are knowledge, not talent — they are learnable exactly","A drawn endgame held is worth half a point every time","Your king becomes a fighting piece here"],
+  mode:"read"
+},
+{
+  id:"e-kingactive", tier:10, title:"Activate the king",
+  body:"With the queens off, the king stops hiding and starts fighting. It is worth roughly four pawns as an attacker. The single most common endgame error at club level is leaving the king on g1 while the opponent marches his to d4 and eats everything.",
+  points:["When the queens come off, march the king to the centre","A centralised king is worth about four pawns","Count how many moves it takes — then start now"],
+  fen:"6k1/5ppp/8/8/8/8/5PPP/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Walk the king towards the centre: Kf1, Ke2, Kd3, Kd4. That is the endgame plan."
+},
+{
+  id:"e-opposition2", tier:10, title:"Opposition and key squares",
+  body:"With a single pawn, the king in front matters more than the pawn itself. If your king reaches the square two ranks ahead of the pawn with the opposition, the pawn promotes. If the defending king gets in front and holds the opposition, it is a draw. This one rule decides thousands of games.",
+  points:["Key squares: two ranks ahead of the pawn","King in front of the pawn, never behind it","The side who must move first gives ground"],
+  fen:"8/8/8/4k3/8/4K3/4P3/8 w - - 0 1",
+  mode:"play", side:"w",
+  note:"Ke3-d4 or Kf4 first — walk the king ahead of the pawn. Pushing the pawn too early draws."
+},
+{
+  id:"e-triangulation", tier:10, title:"Triangulation and zugzwang",
+  body:"Sometimes you want the same position but with the opponent to move. A king can lose a move by walking a small triangle while the opposing king, with fewer squares, cannot copy it. That handed-over tempo is often the entire difference between a win and a draw.",
+  points:["Zugzwang: any move you make makes things worse","Triangulate to hand the obligation to move back","Count spare tempi before you commit"],
+  fen:"8/8/1p6/1P6/8/2k5/8/2K5 w - - 0 1",
+  mode:"explore",
+  note:"Neither king may approach the other. Whoever must give way first loses the b-pawn."
+},
+{
+  id:"e-square", tier:10, title:"The rule of the square, again",
+  body:"To see whether a lone king catches a runner, draw the square whose side is the distance from the pawn to its queening rank. If the king is inside that square when it is his move, he catches the pawn. Remember that a pawn on its starting rank counts from the third rank, because of the double step.",
+  points:["Square side = distance from pawn to promotion","Inside the square with the move = caught","A pawn on rank 2 counts from rank 3"],
+  fen:"8/8/8/8/6k1/8/P7/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Count the square from a3, not a2. Black is outside it — the pawn runs."
+},
+{
+  id:"e-outside", tier:10, title:"The outside passed pawn",
+  body:"A passed pawn far from the other pawns is a decoy: the enemy king must go and deal with it, and while he is away your king eats the rest. This is why players fight so hard for a queenside majority — it is a future outside passer.",
+  points:["The passer pulls the enemy king away from everything else","Then your king walks in on the other wing","Distance is the whole value — the further out, the better"],
+  fen:"8/5ppp/8/p7/P7/5PPP/8/K5k1 w - - 0 1",
+  mode:"explore",
+  note:"The a-pawns are far from the kingside. Whoever wins that race wins the game."
+},
+{
+  id:"e-protected", tier:10, title:"The protected passed pawn",
+  body:"A passed pawn defended by another pawn is a permanent asset: no piece has to babysit it, and the enemy king must stay within reach forever. That frozen enemy king is what wins the game, not the pawn itself.",
+  points:["Defended by a pawn, so no piece is tied down","The enemy king is chained to it for good","Then win elsewhere with a free king"],
+  fen:"8/8/3k4/2pP4/2P5/8/8/3K4 w - - 0 1",
+  mode:"explore",
+  note:"White's d5 pawn is protected by c4. Black's king can never leave the area."
+},
+{
+  id:"e-breakthrough", tier:10, title:"The pawn breakthrough",
+  body:"Three pawns against three can sometimes force a runner through by sacrifice, even with no pieces on the board. The pattern is worth memorising outright, because it looks impossible and wins on the spot.",
+  points:["Sacrifice to deflect, then run the outside pawn","Count the race before playing it — it is forced or nothing","The pattern repeats: b6, a6, c6 and through"],
+  fen:"7k/ppp5/8/PPP5/8/8/8/7K w - - 0 1",
+  mode:"solve",
+  task:"White to play and force a pawn through.",
+  accept:["b6"],
+  hint:"Offer the middle pawn first. Whichever way Black takes, another pawn gets past.",
+  answer:"b6! — axb6 a6! bxa6 c6 and the pawn queens; cxb6 a6! and the a-pawn runs."
+},
+{
+  id:"e-majority", tier:10, title:"Pawn majorities and candidates",
+  body:"A healthy majority makes a passed pawn; a damaged one does not. The rule is to push the candidate first — the pawn with no enemy pawn in front of it — and never to advance the pawn that an enemy pawn is facing.",
+  points:["Push the unopposed pawn first: the candidate","Doubled pawns rarely make a passer","Two against one on a wing should always produce a runner"],
+  fen:"6k1/5pp1/8/8/8/8/4PPP1/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Three against two. Push the e-pawn — the one with nothing in front of it — not the f or g."
+},
+{
+  id:"e-kbn-two-bishops", tier:10, title:"Mating with two bishops",
+  body:"Two bishops force mate against a bare king by squeezing him into a corner — any corner. Keep the bishops side by side on adjacent diagonals to build a wall, bring the king up, and shrink the box. It takes under twenty moves once you know the method.",
+  points:["Bishops on adjacent diagonals build an impassable wall","The king does the driving; the bishops hold the fence","Any corner works, unlike bishop and knight"],
+  fen:"8/8/8/3k4/8/8/4BB2/4K3 w - - 0 1",
+  mode:"play", side:"w",
+  note:"Walk the king up first, then set the bishops side by side and push the king to a corner."
+},
+{
+  id:"e-kbn", tier:10, title:"Bishop and knight mate",
+  body:"The hardest basic mate: it only works in a corner the bishop controls, so you must first drive the king to the wrong corner and then walk him along the edge to the right one. It is rare, but if you ever reach it with a fifty-move clock running you will be glad you looked.",
+  points:["Only the corner matching your bishop's colour works","Use the W-manoeuvre with the knight to herd along the edge","Rare — learn it last, but do learn it"],
+  fen:"8/8/8/4k3/8/8/4BN2/4K3 w - - 0 1",
+  mode:"play", side:"w",
+  note:"Your bishop is light-squared, so the mating corners are h1 and a8. Drive him there."
+},
+{
+  id:"e-lucena", tier:10, title:"The Lucena position: building a bridge",
+  body:"The single most important rook endgame to know. Your king is stuck in front of your own pawn and the enemy rook checks endlessly. The solution is to put your rook on the fourth rank, walk the king out into the checks, and then block the last one with the rook. Bridge built, pawn promotes.",
+  points:["Rook to the fourth rank first — that is the whole trick","Walk the king towards the checks, not away","The rook blocks the final check and shields the king"],
+  fen:"2K5/2P1k3/8/8/8/8/3R4/r7 w - - 0 1",
+  mode:"play", side:"w",
+  note:"Play Rd4 first. Then Kb7, and when the checks come, block with Rb4."
+},
+{
+  id:"e-philidor", tier:10, title:"The Philidor position: the third rank defence",
+  body:"The most important drawing technique in chess. Defending a rook endgame a pawn down, keep your rook on your third rank so the enemy king can never cross it. The moment the pawn advances to that rank, drop the rook to the back and check from behind forever.",
+  points:["Rook on your third rank stops the king advancing","When the pawn reaches that rank, go to the first and check","Checks from behind are endless — the king cannot hide"],
+  fen:"8/3k4/r7/3PK2R/8/8/8/8 b - - 0 1",
+  mode:"explore",
+  note:"Black's rook on the 6th rank stops Kd6 and Ke6. That is the whole defence."
+},
+{
+  id:"e-rookbehind", tier:10, title:"Rooks belong behind passed pawns",
+  body:"Tarrasch's rule, and it is almost always right. Behind your own passer the rook gains scope as the pawn advances; behind the enemy's it loses scope. A rook in front of a pawn is a passive rook, and passive rooks lose endgames.",
+  points:["Behind your own passer: your scope grows as it advances","Behind the enemy's passer: his rook is tied down","In front of a pawn is the worst square on the board"],
+  fen:"8/8/8/8/8/1k6/1P6/1R4K1 w - - 0 1",
+  mode:"explore",
+  note:"The rook on b1 is behind its pawn. As the pawn advances the rook keeps every square it had."
+},
+{
+  id:"e-cutoff", tier:10, title:"Cutting the king off",
+  body:"A rook on an open file or rank between the enemy king and the action is worth more than a pawn. The further the king is cut off from your passer, the easier the win — and in rook and pawn endings, cutting off along a rank is often even stronger than along a file.",
+  points:["Cut first, push second","Every extra file of separation makes the win simpler","Do not let the enemy king back in to trade the cut off"],
+  fen:"8/6k1/8/8/P3R3/8/8/6K1 w - - 0 1",
+  mode:"explore",
+  note:"The rook on the e-file cuts the black king off from the a-pawn entirely."
+},
+{
+  id:"e-rookvspawn", tier:10, title:"Rook against a pawn",
+  body:"A rook usually beats a lone pawn, but not always: if the pawn is far advanced and the defending king shelters in front of it, there are stalemate and skewer tricks. The winning method is to get the rook behind the pawn or the king in front of it — ideally both.",
+  points:["King in front of the pawn stops it dead","Rook behind the pawn pins it in place","Beware stalemate tricks on rook pawns"],
+  fen:"8/8/8/7K/8/1k6/1p6/7R w - - 0 1",
+  mode:"explore",
+  note:"The rook holds the first rank, so the pawn can never promote. Now walk the king over."
+},
+{
+  id:"e-rookactivity", tier:10, title:"Activity beats material in rook endings",
+  body:"Rook endings obey a different economy: an active rook on the seventh, cutting the king and eating pawns, is routinely worth more than a pawn or even two. Given a choice between defending passively a pawn up and going active a pawn down, go active.",
+  points:["An active rook beats a passive rook, almost regardless of pawns","The seventh rank is worth a pawn on its own","Never defend a pawn with a rook if you can counter-attack instead"],
+  fen:"6k1/5ppp/8/8/8/8/1R3PPP/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Rb7 hits everything along the seventh and ties Black to passive defence."
+},
+{
+  id:"e-oppcolour", tier:10, title:"Opposite-coloured bishops",
+  body:"In pure bishop endings, opposite colours are the great drawing mechanism: two extra pawns are often not enough, because the defending bishop simply sits on a square the attacker can never attack. In the middlegame, with rooks and queens still on, the same imbalance favours the attacker instead.",
+  points:["Endgame: opposite bishops are drawish, even two pawns down","Middlegame: opposite bishops favour the attacker","Put your pawns on the colour the enemy bishop cannot touch"],
+  fen:"8/5k2/8/3b4/8/4B3/5PP1/6K1 w - - 0 1",
+  mode:"explore",
+  note:"The bishops can never meet or challenge each other. A blockade on one colour holds easily."
+},
+{
+  id:"e-goodbishop", tier:10, title:"Bishop versus knight in the endgame",
+  body:"Bishops are better when the position is open and there are pawns on both wings, because they act at long range on two fronts. Knights are better in closed positions and when everything is on one wing, because they reach both colours. Judge the position, not the piece values.",
+  points:["Open board, pawns on both wings: bishop","Closed board, one wing only: knight","Put your pawns on the opposite colour to your own bishop"],
+  fen:"8/p4ppp/4k3/8/8/8/P1B2PPP/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Pawns on both wings and open lines — this is the bishop's ideal endgame."
+},
+{
+  id:"e-knightend", tier:10, title:"Knight endgames are pawn endgames",
+  body:"The old maxim is a good one: knight endings follow the same rules as pure pawn endings, because knights are poor blockaders of distant passers and cannot gain a tempo. Outside passed pawns, the opposition and king activity all matter just as much.",
+  points:["Treat them like pawn endings with an extra piece","Knights cannot lose a move — no triangulation","An outside passer is just as decisive here"],
+  fen:"6k1/5ppp/8/8/8/2N5/5PPP/6K1 w - - 0 1",
+  mode:"explore",
+  note:"Centralise the knight and the king. The same plans as a pawn ending apply."
+},
+{
+  id:"e-wrongbishop", tier:10, title:"The wrong rook pawn",
+  body:"A bishop and a rook pawn draw against a bare king if the bishop does not control the promotion square. The defending king simply sits in the corner and cannot be evicted. Knowing this saves half points, and occasionally lets you sacrifice into a dead draw on purpose.",
+  points:["Bishop must control the queening square, or it is a draw","Defender: run for the drawing corner","It is a real resource — aim for it when losing"],
+  fen:"7k/8/8/8/8/4B3/P7/6K1 w - - 0 1",
+  mode:"explore",
+  note:"A dark-squared bishop cannot control a8. If Black's king reaches the corner it is drawn."
+},
+{
+  id:"e-queenvspawn", tier:10, title:"Queen against a pawn on the seventh",
+  body:"A queen normally beats a lone advanced pawn by stepping closer with checks while the enemy king blocks his own pawn. The exceptions are the bishop pawn and the rook pawn, where stalemate tricks let the defender hold. Knowing which files draw is worth remembering.",
+  points:["Method: check, force the king in front, gain a move, approach","Bishop pawns and rook pawns can draw by stalemate","Central and knight pawns always lose"],
+  fen:"8/8/8/8/8/1k6/2p5/4Q1K1 w - - 0 1",
+  mode:"explore",
+  note:"Approach with checks, forcing the king in front of his own pawn, then walk the king closer."
+},
+{
+  id:"e-fortress", tier:10, title:"Fortresses",
+  body:"Some positions cannot be broken however much material is missing, because the defender builds a wall that no piece can cross. Recognising a fortress saves lost games; recognising that one is coming stops you trading into it when you are winning.",
+  points:["A wall no enemy piece can ever cross","Recognise it early — both to build and to avoid","When winning, trade into positions with no fortress available"],
+  fen:"8/8/4k3/4p3/4P3/4K3/8/8 w - - 0 1",
+  mode:"explore",
+  note:"Blocked pawns and facing kings. Neither side can make progress — a natural fortress."
+},
+{
+  id:"e-stalemate2", tier:10, title:"Stalemate as a weapon",
+  body:"When you are lost, stalemate is a genuine plan. Shed material, strip yourself of legal moves, and force the win to require precision. Half the lost endgames at club level are saved because the winner stopped paying attention for one move.",
+  points:["When losing, give material away to remove your own moves","Check every 'obvious' win for stalemate first","Perpetual check is the other great saver"],
+  fen:"7k/5Q2/6K1/8/8/8/8/8 w - - 0 1",
+  mode:"solve",
+  task:"White to play. Find the mate — and notice how nearly it was stalemate.",
+  accept:["Qg7","Qf8"],
+  hint:"The king has no squares at all. Deliver mate without letting him breathe.",
+  answer:"Qg7# or Qf8#. Look first: with the king already boxed in, a quiet move like Qe6 is stalemate."
+},
+{
+  id:"e-trade", tier:10, title:"Which pieces to trade",
+  body:"Converting a material edge is mostly about which pieces leave the board. Trade pieces, not pawns, when you are ahead. Trade the opponent's active pieces and keep your own. And when you have an extra pawn, heading for a pure pawn ending is usually the cleanest win available.",
+  points:["Ahead in material: trade pieces, keep pawns on","Trade their best piece, keep yours","A clean pawn ending is the simplest conversion"],
+  mode:"read"
+},
+{
+  id:"e-rookpawn-3v2", tier:10, title:"Three against two on one wing",
+  body:"Rook and three pawns against rook and two on the same side is a theoretical draw, but a difficult one to hold in practice. The defender must keep the rook active and the king in front; the attacker must create a passer and cut the king. Know which side of the draw you are on.",
+  points:["Theoretically drawn — practically often lost","Defender: activity and king in front","Attacker: create the passed pawn and cut off the king"],
+  fen:"6k1/5ppp/8/8/8/5PPP/1r6/1R4K1 w - - 0 1",
+  mode:"explore",
+  note:"All the pawns are on one wing. This is the drawing structure to recognise and aim for."
+},
+{
+  id:"e-shoulder", tier:10, title:"Shouldering the enemy king",
+  body:"In a pawn race your king can do more than run — it can body-check. Stepping into the path of the opposing king costs him a move or forces him around, which in a race is the same as being a pawn ahead. Always look at blocking his route rather than just sprinting.",
+  points:["Block the enemy king's route, do not just run","One shoulder-charge is worth a tempo in a race","Count the race first, then choose the path"],
+  fen:"8/8/8/2k5/8/2K5/6P1/8 w - - 0 1",
+  mode:"explore",
+  note:"Kd4 or Kc4 keeps the black king out while the pawn runs. Do not simply push and hope."
+},
+{
+  id:"e-promote-underpromote", tier:10, title:"Underpromotion",
+  body:"Almost always take the queen. The exceptions are real though: a knight when promotion comes with check or a fork, and a rook when a new queen would be stalemate. Look for them when the natural promotion seems not to work.",
+  points:["Knight when promoting with check or a fork","Rook when a queen would be stalemate","Everything else: take the queen"],
+  fen:"8/5P2/8/8/8/5k2/8/5K2 w - - 0 1",
+  mode:"explore",
+  note:"Here a queen is simply right. Underpromotion is for when a queen stalemates or a knight forks."
+},
+{
+  id:"e-twopawns", tier:10, title:"Connected passed pawns",
+  body:"Two connected passers on the sixth rank beat a rook: they defend each other as they advance, and the rook cannot stop both. Even further back, connected passers are a decisive asset because one supports the other's advance without any piece help.",
+  points:["Advance them side by side, never one far ahead","Two on the sixth beat a rook","Do not push until they can defend each other"],
+  fen:"8/8/1PP5/4k3/8/8/7K/1r6 w - - 0 1",
+  mode:"explore",
+  note:"The pawns defend each other. The rook alone cannot deal with both once they advance."
+},
+{
+  id:"e-checklist", tier:10, title:"The endgame checklist",
+  body:"Before every endgame move, run the same four questions. Where should my king be? Do I have, or can I make, a passed pawn? Is my rook active or passive? Which trade improves my position? Four questions, asked every move, are worth more than a book of theory.",
+  points:["Where does my king belong — and am I moving it there?","Can I create a passed pawn?","Is my rook active, or is it babysitting?","Which trade helps me, and which helps him?"],
+  mode:"read"
+}
+];

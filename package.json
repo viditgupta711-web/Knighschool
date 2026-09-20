@@ -1,0 +1,15 @@
+{
+  "name": "knight-school",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Knight School - a full chess course as an offline PWA.",
+  "scripts": {
+    "build": "node tools/build-content.js && node tools/patch-app.js",
+    "verify": "node tools/verify.js",
+    "check-puzzles": "node tools/tactics-check.js",
+    "serve": "python -m http.server 8765"
+  },
+  "devDependencies": {
+    "chess.js": "1.0.0-beta.6"
+  }
+}
