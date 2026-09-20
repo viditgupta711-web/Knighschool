@@ -1,11 +1,18 @@
 /* Knight School service worker — caches everything on install so the app
    works with no connection at all after the first visit. */
-const CACHE = 'knight-school-v2';
+const CACHE = 'knight-school-v3';
 const FILES = [
   './', './index.html', './manifest.json',
   './icons/icon-48.png', './icons/icon-72.png', './icons/icon-96.png',
   './icons/icon-144.png', './icons/icon-192.png', './icons/icon-256.png',
   './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png',
+  './content/tiers.js',
+  './content/openings.js',
+  './content/encyclopedia.js',
+  './content/middlegame.js',
+  './content/endgames.js',
+  './content/tips.js',
+  './content/puzzles.js',
 ];
 
 self.addEventListener('install', (e) => {
